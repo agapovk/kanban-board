@@ -1,3 +1,4 @@
+import { ModeToggle } from './mode-toggle';
 import { UserNav } from './UserNav';
 
 export default function Header() {
@@ -5,7 +6,10 @@ export default function Header() {
     <header className="border-b bg-muted">
       <div className="container mx-auto py-4 flex justify-between items-center">
         <h1 className="text-2xl">Kanban-доска</h1>
-        <UserNav />
+        <div className="flex items-center gap-4">
+          <ModeToggle />
+          <UserNav />
+        </div>
       </div>
     </header>
   );
