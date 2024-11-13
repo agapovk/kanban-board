@@ -14,14 +14,23 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { PlusCircle } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 
 const formSchema = z.object({
-  task: z.string().min(2, {
-    message: 'Minimum 2 characters.',
-  }),
+  task: z
+    .string()
+    .min(2, {
+      message: 'Minimum 2 characters.',
+    })
+    .max(50, {
+      message: 'Maximum 50 characters.',
+    }),
 });
 
-export function NewTaskForm() {
+export function NewTaskForm({ cardId }: { cardId: string }) {
+  const tasks = useSelector((state: RootState) => state.tasks.value);
+  const dispatch = useDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,7 +39,15 @@ export function NewTaskForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    dispatch({
+      type: 'tasks/add',
+      payload: {
+        id: tasks.length + 1,
+        title: values.task,
+        cardId,
+      },
+    });
+    form.reset();
   }
 
   return (
@@ -45,7 +62,7 @@ export function NewTaskForm() {
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

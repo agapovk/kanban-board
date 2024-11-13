@@ -1,28 +1,38 @@
-import { useState } from 'react';
 import StatusCard from './StatusCard';
 import { ScrollArea, ScrollBar } from './ui/scroll-area';
 import { Button } from './ui/button';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/lib/store';
 
 export default function Board() {
-  const [cards, setCards] = useState([
-    { id: 1, title: 'New' },
-    { id: 2, title: 'Accepted' },
-    { id: 3, title: 'In Progress' },
-    { id: 4, title: 'Done' },
-  ]);
+  const cards = useSelector((state: RootState) => state.cards.value);
+  const tasks = useSelector((state: RootState) => state.tasks.value);
+  const dispatch = useDispatch();
+
+  function getTasksByCardId(cardId: string) {
+    return tasks.filter((task) => task.cardId === cardId);
+  }
+
   return (
     <ScrollArea>
       <div className="flex gap-4 pb-5">
         {cards.map((card) => (
-          <StatusCard key={card.id} title={card.title} />
+          <StatusCard
+            key={card.id}
+            card={card}
+            tasks={getTasksByCardId(card.id)}
+          />
         ))}
         <Button
-          onClick={() =>
-            setCards([
-              ...cards,
-              { id: cards.length + 1, title: `New ${cards.length + 1}` },
-            ])
-          }
+          onClick={() => {
+            dispatch({
+              type: 'cards/add',
+              payload: {
+                id: cards.length + 1,
+                title: 'New',
+              },
+            });
+          }}
         >
           Add
         </Button>
