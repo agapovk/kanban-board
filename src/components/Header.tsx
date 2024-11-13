@@ -5,7 +5,9 @@ export default function Header() {
   return (
     <header className="border-b bg-muted">
       <div className="container mx-auto py-4 flex justify-between items-center">
-        <h1 className="text-2xl">Kanban-доска</h1>
+        <h1 className="text-2xl">
+          <span className="font-bold text-primary">Kanban</span> доска
+        </h1>
         <div className="flex items-center gap-4">
           <ModeToggle />
           <UserNav />

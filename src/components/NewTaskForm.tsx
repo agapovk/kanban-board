@@ -37,7 +37,7 @@ export function NewTaskForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-start gap-2"
+        className="flex items-start gap-2 w-full"
       >
         <FormField
           control={form.control}

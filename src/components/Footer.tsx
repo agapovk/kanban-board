@@ -7,7 +7,7 @@ export default function Footer() {
           <p>Новые: 0</p>
           <p>Завершенные: 0</p>
         </div>
-        <p>Kanban-доска by agapovk {date.getFullYear()} </p>
+        <p>Kanban доска by agapovk {date.getFullYear()} </p>
       </div>
     </header>
   );
