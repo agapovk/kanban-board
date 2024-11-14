@@ -1,10 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PlusCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -12,8 +13,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { PlusCircle } from 'lucide-react';
-import { useDispatch } from 'react-redux';
+import { Input } from '@/components/ui/input';
 
 const formSchema = z.object({
   title: z.string().min(2, 'Минимум 2 буквы').max(50, 'Максимум 50 букв'),

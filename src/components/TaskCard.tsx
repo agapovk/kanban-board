@@ -1,6 +1,9 @@
-import type { Task } from '@/slices/taskSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { Check, ChevronDown, MinusCircle } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { TaskEditForm } from './TaskEditForm';
+import { Separator } from './ui/separator';
+import { RootState } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -9,9 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { Separator } from './ui/separator';
-import { RootState } from '@/lib/store';
-import { TaskEditForm } from './TaskEditForm';
+import type { Task } from '@/slices/taskSlice';
 
 type Props = {
   task: Task;

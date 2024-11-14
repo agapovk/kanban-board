@@ -1,3 +1,11 @@
+import React from 'react';
+import { MoreHorizontal } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+
+import { NewTaskForm } from './NewTaskForm';
+import { RenameCardForm } from './RenameCardForm';
+import TaskCard from './TaskCard';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -5,23 +13,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { NewTaskForm } from './NewTaskForm';
-import { useDispatch } from 'react-redux';
-import { MoreHorizontal } from 'lucide-react';
-import type { StatusCard } from '@/slices/cardSlice';
-import type { Task } from '@/slices/taskSlice';
-import TaskCard from './TaskCard';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import React from 'react';
-import { RenameCardForm } from './RenameCardForm';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+
+import type { StatusCard } from '@/slices/cardSlice';
+import type { Task } from '@/slices/taskSlice';
 
 interface Props {
   card: StatusCard;

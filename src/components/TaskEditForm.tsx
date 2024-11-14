@@ -1,7 +1,12 @@
+import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { z } from 'zod';
 
+import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,12 +17,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
+
 import type { Task } from '@/slices/taskSlice';
-import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
-import React from 'react';
-import { useDispatch } from 'react-redux';
 
 type Props = {
   task: Task;

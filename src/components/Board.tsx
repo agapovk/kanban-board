@@ -1,9 +1,10 @@
-import StatusCard from './StatusCard';
-import { ScrollArea, ScrollBar } from './ui/scroll-area';
-import { Button } from './ui/button';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/lib/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+
+import StatusCard from './StatusCard';
+import { Button } from './ui/button';
+import { ScrollArea, ScrollBar } from './ui/scroll-area';
+import { RootState } from '@/lib/store';
 
 export default function Board() {
   const cards = useSelector((state: RootState) => state.cards.value);
