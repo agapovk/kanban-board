@@ -4,6 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface Task {
   id: string;
   title: string;
+  description: string;
   cardId: string;
 }
 export interface TaskState {
@@ -15,6 +16,7 @@ const initialState: TaskState = {
     {
       id: '1b9d6bcd-bbfd-4b2d-9b5d-2b0d7b3dcb6d',
       title: 'New Task',
+      description: 'Task Description',
       cardId: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
     },
   ],
@@ -41,9 +43,16 @@ export const taskSlice = createSlice({
         task.cardId = action.payload.cardId;
       }
     },
+    update: (state, action: PayloadAction<Task>) => {
+      const task = state.value.find((task) => task.id === action.payload.id);
+      if (task) {
+        task.title = action.payload.title;
+        task.description = action.payload.description;
+      }
+    },
   },
 });
 
-export const { add, remove } = taskSlice.actions;
+export const { add, remove, move, update } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,39 +13,34 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { PlusCircle } from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
+import { useDispatch } from 'react-redux';
 
 const formSchema = z.object({
-  task: z
-    .string()
-    .min(2, {
-      message: 'Minimum 2 characters.',
-    })
-    .max(50, {
-      message: 'Maximum 50 characters.',
-    }),
+  title: z.string().min(2).max(50),
 });
 
 export function NewTaskForm({ cardId }: { cardId: string }) {
-  const tasks = useSelector((state: RootState) => state.tasks.value);
   const dispatch = useDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      task: '',
+      title: '',
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch({
-      type: 'tasks/add',
-      payload: {
-        id: tasks.length + 1,
-        title: values.task,
-        cardId,
-      },
-    });
+    try {
+      dispatch({
+        type: 'tasks/add',
+        payload: {
+          id: uuidv4(),
+          title: values.title,
+          cardId,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
     form.reset();
   }
 
@@ -56,7 +52,7 @@ export function NewTaskForm({ cardId }: { cardId: string }) {
       >
         <FormField
           control={form.control}
-          name="task"
+          name="title"
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormControl>

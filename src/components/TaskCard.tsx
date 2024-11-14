@@ -8,17 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 
 import { Separator } from './ui/separator';
 import { RootState } from '@/lib/store';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
+import { TaskEditForm } from './TaskEditForm';
 
 type Props = {
   task: Task;
@@ -61,29 +54,7 @@ export default function TaskCard({ task }: Props) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="ghost" className="flex-1 truncate py-2">
-              {task.title}
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <div className="flex flex-col gap-4 py-4">
-              <Input
-                id="name"
-                placeholder="Название задачи"
-                className="col-span-3"
-              />
-              <Textarea
-                placeholder="Описание задачи"
-                className="min-h-64 flex-1 p-4"
-              />
-            </div>
-            <DialogFooter>
-              <Button type="submit">Сохранить</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <TaskEditForm task={task} />
       </div>
       <div className="flex items-center">
         <Separator orientation="vertical" className="h-6" />
