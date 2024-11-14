@@ -13,6 +13,7 @@ import { XCircleIcon } from 'lucide-react';
 import type { StatusCard } from '@/slices/cardSlice';
 import type { Task } from '@/slices/taskSlice';
 import TaskCard from './TaskCard';
+import { Separator } from './ui/separator';
 
 interface Props {
   card: StatusCard;
@@ -54,7 +55,8 @@ export default function StatusCard({ card, tasks }: Props) {
           )}
         </ScrollArea>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
+      <Separator />
+      <CardFooter className="p-4">
         <NewTaskForm cardId={card.id} />
       </CardFooter>
     </Card>
