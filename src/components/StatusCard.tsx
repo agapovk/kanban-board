@@ -22,8 +22,8 @@ export default function StatusCard({ card, tasks }: Props) {
   const dispatch = useDispatch();
 
   return (
-    <Card className="min-w-80 h-full">
-      <CardHeader className="p-4 flex flex-row justify-between items-center space-y-0">
+    <Card className="h-full min-w-80">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4">
         <CardTitle>{card.title}</CardTitle>
         <Button
           className="m-0"
@@ -39,10 +39,10 @@ export default function StatusCard({ card, tasks }: Props) {
           <XCircleIcon />
         </Button>
       </CardHeader>
-      <CardContent className="flex-1 p-4 pt-0 space-y-4">
+      <CardContent className="flex-1 space-y-4 p-4 pt-0">
         <ScrollArea className="">
           {tasks.length === 0 ? (
-            <p className="py-2 px-4 border border-dashed rounded-md text-sm text-muted-foreground">
+            <p className="rounded-md border border-dashed px-4 py-2 text-sm text-muted-foreground">
               Нет задач
             </p>
           ) : (

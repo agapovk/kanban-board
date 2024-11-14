@@ -21,7 +21,7 @@ export default function TaskCard({ task }: Props) {
   return (
     <li
       key={task.id}
-      className="flex items-center justify-between gap-2 bg-secondary rounded-md text-sm border"
+      className="flex items-center justify-between gap-2 rounded-md border bg-secondary text-sm"
     >
       <div className="flex items-center">
         <DropdownMenu>
@@ -52,7 +52,7 @@ export default function TaskCard({ task }: Props) {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <p className="flex-1 py-2 truncate">{task.title}</p>
+        <p className="flex-1 truncate py-2">{task.title}</p>
       </div>
       <div className="flex items-center">
         <Separator orientation="vertical" className="h-6" />

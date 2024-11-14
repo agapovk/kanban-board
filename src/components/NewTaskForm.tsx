@@ -7,10 +7,8 @@ import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
-  // FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { PlusCircle } from 'lucide-react';
@@ -54,7 +52,7 @@ export function NewTaskForm({ cardId }: { cardId: string }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-start gap-2 w-full"
+        className="flex w-full items-start gap-2"
       >
         <FormField
           control={form.control}
@@ -68,7 +66,7 @@ export function NewTaskForm({ cardId }: { cardId: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit" size="icon">
+        <Button type="submit" size="icon" variant="outline">
           <PlusCircle />
         </Button>
       </form>
