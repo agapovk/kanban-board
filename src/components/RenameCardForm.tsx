@@ -1,54 +1,57 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { v4 as uuidv4 } from 'uuid';
-
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
-import { PlusCircle } from 'lucide-react';
+import { Input } from './ui/input';
+import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
 import { useDispatch } from 'react-redux';
+import type { StatusCard } from '@/slices/cardSlice';
+import { Check } from 'lucide-react';
+import React from 'react';
+
+type Props = {
+  card: StatusCard;
+  rename: boolean;
+  setRename: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const formSchema = z.object({
-  title: z.string().min(2, 'Минимум 2 буквы').max(50, 'Максимум 50 букв'),
+  id: z.string(),
+  title: z.string().min(2).max(50),
 });
 
-export function NewTaskForm({ cardId }: { cardId: string }) {
+export function RenameCardForm({ card, rename, setRename }: Props) {
   const dispatch = useDispatch();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
-    },
+    defaultValues: card,
   });
+
+  React.useEffect(() => {
+    if (rename) {
+      form.setFocus('title');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rename]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       dispatch({
-        type: 'tasks/add',
-        payload: {
-          id: uuidv4(),
-          title: values.title,
-          cardId,
-        },
+        type: 'cards/rename',
+        payload: values,
       });
+      setRename(false);
     } catch (error) {
       console.log(error);
     }
-    form.reset();
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full items-start gap-2"
+        className="me-2 flex items-center gap-2"
       >
         <FormField
           control={form.control}
@@ -62,8 +65,8 @@ export function NewTaskForm({ cardId }: { cardId: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit" size="icon" variant="outline">
-          <PlusCircle />
+        <Button size="icon" type="submit">
+          <Check />
         </Button>
       </form>
     </Form>

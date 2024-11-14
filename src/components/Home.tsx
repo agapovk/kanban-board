@@ -4,9 +4,9 @@ import Board from '@/components/Board';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-muted/30">
       <Header />
-      <main className="container mx-auto flex-1 py-4">
+      <main className="w-full flex-1 p-4">
         <Board />
       </main>
       <Footer />

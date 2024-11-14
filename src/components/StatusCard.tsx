@@ -8,12 +8,20 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { NewTaskForm } from './NewTaskForm';
 import { useDispatch } from 'react-redux';
-import { Button } from './ui/button';
-import { XCircleIcon } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import type { StatusCard } from '@/slices/cardSlice';
 import type { Task } from '@/slices/taskSlice';
 import TaskCard from './TaskCard';
-import { Separator } from './ui/separator';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import React from 'react';
+import { RenameCardForm } from './RenameCardForm';
 
 interface Props {
   card: StatusCard;
@@ -21,27 +29,50 @@ interface Props {
 }
 export default function StatusCard({ card, tasks }: Props) {
   const dispatch = useDispatch();
+  const [rename, setRename] = React.useState(false);
+
+  React.useEffect(() => {
+    if (card.title === '') {
+      setRename(true);
+    }
+  }, [card.title]);
 
   return (
-    <Card className="h-full min-w-80">
+    <Card className="h-full w-80">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4">
-        <CardTitle>{card.title}</CardTitle>
-        <Button
-          className="m-0"
-          variant="ghost"
-          size="icon"
-          onClick={() => {
-            dispatch({
-              type: 'cards/remove',
-              payload: card.id,
-            });
-          }}
-        >
-          <XCircleIcon />
-        </Button>
+        <CardTitle>
+          {rename ? (
+            <RenameCardForm rename={rename} setRename={setRename} card={card} />
+          ) : (
+            card.title
+          )}
+        </CardTitle>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className="m-0" variant="ghost" size="icon">
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              className="flex cursor-pointer items-center justify-between"
+              onClick={() => setRename(true)}
+            >
+              Переимновать
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex cursor-pointer items-center justify-between"
+              onClick={() =>
+                dispatch({ type: 'cards/remove', payload: card.id })
+              }
+            >
+              Удалить
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardHeader>
       <CardContent className="flex-1 space-y-4 p-4 pt-0">
-        <ScrollArea className="">
+        <ScrollArea>
           {tasks.length === 0 ? (
             <p className="rounded-md border border-dashed px-4 py-2 text-sm text-muted-foreground">
               Нет задач

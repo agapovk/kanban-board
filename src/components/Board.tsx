@@ -3,6 +3,7 @@ import { ScrollArea, ScrollBar } from './ui/scroll-area';
 import { Button } from './ui/button';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/lib/store';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Board() {
   const cards = useSelector((state: RootState) => state.cards.value);
@@ -28,13 +29,13 @@ export default function Board() {
             dispatch({
               type: 'cards/add',
               payload: {
-                id: cards.length + 1,
-                title: 'New',
+                id: uuidv4(),
+                title: '',
               },
             });
           }}
         >
-          Add
+          Добавить
         </Button>
         <ScrollBar orientation="horizontal" />
       </div>

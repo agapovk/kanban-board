@@ -36,11 +36,10 @@ export function TaskEditForm({ task }: Props) {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...task },
+    defaultValues: task,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('submit');
     try {
       dispatch({
         type: 'tasks/update',

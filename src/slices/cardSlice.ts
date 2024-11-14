@@ -27,9 +27,15 @@ export const cardSlice = createSlice({
     remove: (state, action: PayloadAction<string>) => {
       state.value = state.value.filter((card) => card.id !== action.payload);
     },
+    rename: (state, action: PayloadAction<{ id: string; title: string }>) => {
+      const card = state.value.find((card) => card.id === action.payload.id);
+      if (card) {
+        card.title = action.payload.title;
+      }
+    },
   },
 });
 
-export const { add, remove } = cardSlice.actions;
+export const { add, remove, rename } = cardSlice.actions;
 
 export default cardSlice.reducer;
